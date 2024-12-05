@@ -15,7 +15,10 @@
     </div>
 
     <div>
+        
         <!-- Remember that your object is the FORM not the CURRENCY >:( -->
+        <!-- Remember to include value for dropdown fields, the form should be sending the selected country's COUNTRY ID, to be used in conversion call in POST method -->
+
         <form method="POST" th:action="@{/convert}" th:object="${form}">
 
             <!-- "From" currency dropdown -->
@@ -27,7 +30,7 @@
                             th:text="${currency.currencyName} + ' ' + ${currency.currencySymbol}"
                             th:value="${currency.id}"></option>
                 </select>
-                
+
                 <div th:if="${#fields.hasErrors('fromCurrency')}" style="color: red; font-size: 12px; margin-left: 103px; width: 400px;">
                     <span th:errors="*{fromCurrency}"></span>
                 </div>

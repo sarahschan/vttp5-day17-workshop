@@ -10,4 +10,5 @@ public class Url {
 
     public static final String CONVERT_URL = "https://free.currconv.com/api/v7/convert?q=%s_%s&compact=ultra&apiKey=" + API_KEY;
 
+    public static final String CONVERT_BASE = "https://free.currconv.com";
 }

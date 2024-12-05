@@ -65,7 +65,13 @@ public class CurrencyController {
             return "index";
         }
 
-        // if all is good
-        
+        // if all is good, proceed with the conversion
+        String fromCurrencyID = form.getFromCurrency();
+        String toCurrencyID = form.getToCurrency();
+        Double amount = form.getAmount();
+        currencyService.makeConversionCall(fromCurrencyID, toCurrencyID, amount);
+
+        return null;
+
     }
 }

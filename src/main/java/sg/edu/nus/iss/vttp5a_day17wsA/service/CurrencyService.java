@@ -8,6 +8,7 @@ import java.util.Set;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import jakarta.annotation.PostConstruct;
 import jakarta.json.Json;
@@ -64,4 +65,20 @@ public class CurrencyService {
         return currencies;
     }
 
+    public Double makeConversionCall(String fromCurrencyID, String toCurrencyID, Double amount){
+
+        // Build your URL to call the API
+        String callUrl = String.format(Url.CONVERT_URL, fromCurrencyID, toCurrencyID);
+                // Alternative reference:
+                String manualBuild = UriComponentsBuilder.fromUriString(Url.CONVERT_BASE)                           // https://free.currconv.com
+                                                         .pathSegment("api", "v7", "convert")       // https://free.currconv.com/api/v7/convert
+                                                         .queryParam("q", fromCurrencyID + "_" + toCurrencyID) // https://free.currconv.com/api/v7/convert?q=SGD_JPY
+                                                         .queryParam("compact", "ultra")             // https://free.currconv.com/api/v7/convert?q=SGD_JPY&compact=ultra
+                                                         .queryParam("apiKey", Url.API_KEY)                    // https://free.currconv.com/api/v7/convert?q=SGD_JPY&compact=ultra&apiKey=abc123
+                                                         .toUriString();
+        System.out.println(callUrl);
+        System.out.println(manualBuild);
+
+        return null;
+    }
 }
