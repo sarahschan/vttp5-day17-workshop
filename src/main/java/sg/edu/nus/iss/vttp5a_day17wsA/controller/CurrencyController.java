@@ -19,7 +19,7 @@ import sg.edu.nus.iss.vttp5a_day17wsA.model.Currency;
 import sg.edu.nus.iss.vttp5a_day17wsA.service.CurrencyService;
 
 @Controller
-@RequestMapping(path={"", "/"})
+@RequestMapping("")
 public class CurrencyController {
     
     @Autowired

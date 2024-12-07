@@ -15,7 +15,7 @@
     </div>
 
     <br>
-    
+
     <div>
         <h3 th:text=" ${fromCurrency.currencyName} + ': ' + ${fromCurrency.currencySymbol} + ${fromAmount}"></h3>
         <h3 th:text=" ${toCurrency.currencyName} + ': ' + ${toCurrency.currencySymbol} + ${toAmount}"></h3>
@@ -24,7 +24,13 @@
     <br>
 
     <div>
-        <a class="btn btn-primary" th:href="@{/}">Make another conversion</a>
+        <!-- <a class="btn btn-primary" th:href="@{/}">Make another conversion</a> -->
+        
+        <button type="button" onclick="window.location.href='/'">Make another conversion</button>
+        
+        <!-- <form action="/" method="get">
+            <button type="submit">Make another conversion</button>
+        </form> -->
     </div>
 </body>
 </html>
