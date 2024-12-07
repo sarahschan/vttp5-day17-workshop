@@ -2,7 +2,7 @@
 - Create a currency converter webapp that makes API calls
 
 ## Request Mappings
-#### localhost:8080
+### localhost:8080
 - Landing page
 - Fill and submit form for currency conversion
   - From Currency
