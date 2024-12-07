@@ -1,5 +1,6 @@
 package sg.edu.nus.iss.vttp5a_day17wsA.controller;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,11 +72,17 @@ public class CurrencyController {
         Double fromAmount = form.getAmount();
         Double convertedAmount = currencyService.makeConversionCall(fromCurrencyID, toCurrencyID, fromAmount);
 
-        // add the required attributes to the model and return result page
-        model.addAttribute("fromCurrency", fromCurrencyID);
-        model.addAttribute("fromAmount", fromAmount);
-        model.addAttribute("toCurrency", toCurrencyID);
-        model.addAttribute("toAmount", convertedAmount);
+        // create/add the required attributes
+        // use DecimalFormat class to remove leading zeros & set a max d.p. of 4
+        DecimalFormat decimalFormat = new DecimalFormat("#.####");
+        String fromAmountFormatted = decimalFormat.format(fromAmount);
+        String convertedAmountFormatted = decimalFormat.format(convertedAmount);
+
+        // add attributes to model and return result
+        model.addAttribute("fromCurrency", currencyService.getCurrencyPOJOByID(fromCurrencyID));
+        model.addAttribute("fromAmount", fromAmountFormatted);
+        model.addAttribute("toCurrency", currencyService.getCurrencyPOJOByID(toCurrencyID));
+        model.addAttribute("toAmount", convertedAmountFormatted);
 
         return "result";
 

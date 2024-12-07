@@ -67,18 +67,18 @@ public class CurrencyService {
     }
 
 
-    public String getCountryNameByID(String currencyID){
+    public Currency getCurrencyPOJOByID(String currencyID){
 
-        String currencyName = "error retrieving currency name";
+        Currency foundCurrency = new Currency();
 
         // loop through list of currencies and match the id
         for (Currency currency : currencies){
             if (currency.getId().equals(currencyID)){
-                currencyName = currency.getCurrencyName();        
+                foundCurrency = currency;        
             }
         }
 
-        return currencyName;
+        return foundCurrency;
     }
 
 

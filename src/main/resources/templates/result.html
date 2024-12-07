@@ -10,13 +10,21 @@
 <body class="container">
 
     <div>
-        <p>This is result.html</p>
+        <p>This is index.html</p>
         <h1>Currency Exchange</h1>
     </div>
 
+    <br>
+    
     <div>
-        <
+        <h3 th:text=" ${fromCurrency.currencyName} + ': ' + ${fromCurrency.currencySymbol} + ${fromAmount}"></h3>
+        <h3 th:text=" ${toCurrency.currencyName} + ': ' + ${toCurrency.currencySymbol} + ${toAmount}"></h3>
     </div>
     
+    <br>
+
+    <div>
+        <a class="btn btn-primary" th:href="@{/}">Make another conversion</a>
+    </div>
 </body>
 </html>
