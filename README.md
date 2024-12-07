@@ -1,8 +1,8 @@
 # DAY 17 WORKSHOP - Currency Converter
 - Create a currency converter webapp that makes API calls
 
-## Landing pages
-### localhost:8080
+## Request Mappings
+#### localhost:8080
 - Landing page
 - Fill and submit form for currency conversion
   - From Currency
