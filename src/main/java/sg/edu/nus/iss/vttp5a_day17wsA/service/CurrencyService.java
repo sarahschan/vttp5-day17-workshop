@@ -61,24 +61,60 @@ public class CurrencyService {
 
     }
 
+
     public List<Currency> getCurrencies(){
         return currencies;
     }
 
+
+    public String getCountryNameByID(String currencyID){
+
+        String currencyName = "error retrieving currency name";
+
+        // loop through list of currencies and match the id
+        for (Currency currency : currencies){
+            if (currency.getId().equals(currencyID)){
+                currencyName = currency.getCurrencyName();        
+            }
+        }
+
+        return currencyName;
+    }
+
+
     public Double makeConversionCall(String fromCurrencyID, String toCurrencyID, Double amount){
+
+                // Alternative reference:
+                // String manualBuild = UriComponentsBuilder.fromUriString(Url.CONVERT_BASE)                           // https://free.currconv.com
+                //                                          .pathSegment("api", "v7", "convert")       // https://free.currconv.com/api/v7/convert
+                //                                          .queryParam("q", fromCurrencyID + "_" + toCurrencyID) // https://free.currconv.com/api/v7/convert?q=SGD_JPY
+                //                                          .queryParam("compact", "ultra")             // https://free.currconv.com/api/v7/convert?q=SGD_JPY&compact=ultra
+                //                                          .queryParam("apiKey", Url.API_KEY)                    // https://free.currconv.com/api/v7/convert?q=SGD_JPY&compact=ultra&apiKey=abc123
+                //                                          .toUriString();
+                // System.out.println(manualBuild);
 
         // Build your URL to call the API
         String callUrl = String.format(Url.CONVERT_URL, fromCurrencyID, toCurrencyID);
-                // Alternative reference:
-                String manualBuild = UriComponentsBuilder.fromUriString(Url.CONVERT_BASE)                           // https://free.currconv.com
-                                                         .pathSegment("api", "v7", "convert")       // https://free.currconv.com/api/v7/convert
-                                                         .queryParam("q", fromCurrencyID + "_" + toCurrencyID) // https://free.currconv.com/api/v7/convert?q=SGD_JPY
-                                                         .queryParam("compact", "ultra")             // https://free.currconv.com/api/v7/convert?q=SGD_JPY&compact=ultra
-                                                         .queryParam("apiKey", Url.API_KEY)                    // https://free.currconv.com/api/v7/convert?q=SGD_JPY&compact=ultra&apiKey=abc123
-                                                         .toUriString();
-        System.out.println(callUrl);
-        System.out.println(manualBuild);
+        System.out.println("Making conversion call to: " + callUrl);
 
-        return null;
+        // Get the response from the API and extract the conversion rate (reference below)
+        String conversionRateString = restTemplate.getForObject(callUrl, String.class);
+        String jsonObjectKey = fromCurrencyID + "_" + toCurrencyID;
+        JsonReader jReader = Json.createReader(new StringReader(conversionRateString));
+        JsonObject jObject = jReader.readObject();
+        Double conversionRate = jObject.getJsonNumber(jsonObjectKey).doubleValue();
+        System.out.println(conversionRate);
+
+        // Using conversion rate, do the math
+        Double convertedAmount = amount * conversionRate;
+        System.out.println(convertedAmount);
+
+        return convertedAmount;
     }
 }
+
+
+// Reference for result of conversion call to https://free.currconv.com/api/v7/convert?q=USD_PHP&compact=ultra&apiKey=59ab9859e27b8f5447e6
+// {
+// "USD_PHP": 57.902038
+// }

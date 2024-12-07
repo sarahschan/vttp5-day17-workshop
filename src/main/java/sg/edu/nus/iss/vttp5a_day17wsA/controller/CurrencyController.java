@@ -68,10 +68,17 @@ public class CurrencyController {
         // if all is good, proceed with the conversion
         String fromCurrencyID = form.getFromCurrency();
         String toCurrencyID = form.getToCurrency();
-        Double amount = form.getAmount();
-        currencyService.makeConversionCall(fromCurrencyID, toCurrencyID, amount);
+        Double fromAmount = form.getAmount();
+        Double convertedAmount = currencyService.makeConversionCall(fromCurrencyID, toCurrencyID, fromAmount);
 
-        return null;
+        // add the required attributes to the model and return result page
+        model.addAttribute("fromCurrency", fromCurrencyID);
+        model.addAttribute("fromAmount", fromAmount);
+        model.addAttribute("toCurrency", toCurrencyID);
+        model.addAttribute("toAmount", convertedAmount);
+
+        return "result";
 
     }
+
 }

@@ -4,7 +4,7 @@ public class Url {
     
     public static final String API_URL = "https://free.currconv.com/api/v7/countries";
     
-    public static final String API_KEY = "59ab9859e27b8f5447e6";
+    public static final String API_KEY = "3aca7ff794e876ae6610";
 
     public static final String URL_AND_KEY = API_URL + "?apiKey=" + API_KEY;
 
