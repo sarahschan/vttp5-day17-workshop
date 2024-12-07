@@ -1,5 +1,6 @@
 # DAY 17 WORKSHOP - Currency Converter
 - Create a currency converter webapp that makes API calls
+- No database, makes use of in-app List
 
 ## Request Mappings
 ### localhost:8080
