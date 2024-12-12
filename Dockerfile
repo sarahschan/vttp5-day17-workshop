@@ -29,7 +29,9 @@ WORKDIR ${DEPLOY_DIR}
 
 COPY --from=builder /app/target/vttp5a-day17wsA-0.0.1-SNAPSHOT.jar vttp5a-day17wsA.jar
 
-ENV SERVER_PORT=3000
-EXPOSE ${SERVER_PORT}
+ENV PORT=8080
+ENV API_KEY=
 
-ENTRYPOINT java -jar vttp5a-day17wsA.jar
+EXPOSE ${PORT}
+
+ENTRYPOINT SERVER_PORT=${PORT} java -jar vttp5a-day17wsA.jar

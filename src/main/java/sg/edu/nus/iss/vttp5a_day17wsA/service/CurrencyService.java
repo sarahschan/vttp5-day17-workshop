@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map.Entry;
 import java.util.Set;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -15,11 +16,14 @@ import jakarta.json.Json;
 import jakarta.json.JsonObject;
 import jakarta.json.JsonReader;
 import jakarta.json.JsonValue;
-import sg.edu.nus.iss.vttp5a_day17wsA.constant.Url;
+import sg.edu.nus.iss.vttp5a_day17wsA.constant.Constant;
 import sg.edu.nus.iss.vttp5a_day17wsA.model.Currency;
 
 @Service
 public class CurrencyService {
+    
+    @Value("${api.key}")
+    private String apiKey;
     
     RestTemplate restTemplate = new RestTemplate(); // Initialize rest template to read the JSON data from the API
 
@@ -28,9 +32,12 @@ public class CurrencyService {
     @PostConstruct  // method will be called automatically when application starts, ensuring that the currencies list is always populated at startup
     public void loadCurrencies(){
         
+        // Build final url to call
+        String countryCallUrl = Constant.COUNTRY_BASE + apiKey;
+
         try{
             // call the API data source to get all currency data
-            String currencyDataRaw = restTemplate.getForObject(Url.URL_AND_KEY, String.class);
+            String currencyDataRaw = restTemplate.getForObject(countryCallUrl, String.class);
 
             // Read the raw Json String
             JsonReader jReader = Json.createReader(new StringReader(currencyDataRaw));
@@ -94,7 +101,7 @@ public class CurrencyService {
                 // System.out.println(manualBuild);
 
         // Build your URL to call the API
-        String callUrl = String.format(Url.CONVERT_URL, fromCurrencyID, toCurrencyID);
+        String callUrl = String.format(Constant.CONVERSION_BASE, fromCurrencyID, toCurrencyID, apiKey);
         System.out.println("Making conversion call to: " + callUrl);
 
         // Get the response from the API and extract the conversion rate (reference below)
