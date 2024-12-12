@@ -1,6 +1,5 @@
 package sg.edu.nus.iss.vttp5a_day17wsA.model;
 
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 
